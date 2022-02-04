@@ -12,9 +12,3 @@ module "RG" {
   rgname   = var.rgname     
   location = var.location
 }
-module "SA" {
-  source   = "./modules/StorageAccount"
-  sname    = var.sname
-  rgname   = var.rgname
-  location = var.location
-}
