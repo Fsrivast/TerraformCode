@@ -16,4 +16,6 @@ module "VNET" {
   source   = "./modules/VNET" 
   rgname   = var.rgname     
   location = var.location
-}
+  vname    = var.vnetname
+  sname    = var.subnetname
+  }
