@@ -2,7 +2,7 @@ output "vnet_name" {
   description = "The Name of the newly created vNet"
   value       = azurerm_virtual_network.vnet.name
 }
-output "vnet_location" {
+output "location" {
   description = "The location of the newly created vNet"
   value       = azurerm_virtual_network.vnet.location
 }
