@@ -1,6 +1,6 @@
 output "vnet_name" {
   description = "The Name of the newly created vNet"
-  value       = azurerm_virtual_network.vnet.name
+  value       = azurerm_virtual_network.vnet.vnet_name
 }
 output "location" {
   description = "The location of the newly created vNet"
