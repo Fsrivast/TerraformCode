@@ -12,3 +12,8 @@ module "RG" {
   rgname   = var.rgname     
   location = var.location
 }
+module "VNET" {
+  source   = "./modules/VNET" 
+  rgname   = var.rgname     
+  location = var.location
+}
