@@ -1,4 +1,4 @@
-# Subnet where PE is to be created
+#Subnet where PE is to be created
 data "azurerm_subnet" "pe_subnet" {
   name                 = var.pe_network.subnet_name
   virtual_network_name = var.pe_network.vnet_name
