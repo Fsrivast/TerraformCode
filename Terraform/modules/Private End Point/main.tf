@@ -1,60 +1,30 @@
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
-}
-
-resource "azurerm_virtual_network" "example" {
-  name                = "example-network"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-}
-
-resource "azurerm_subnet" "service" {
-  name                 = "service"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.1.0/24"]
-
-  enforce_private_link_service_network_policies = true
-}
-
-resource "azurerm_subnet" "subnet" {
-  name                 = subnetname
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.2.0/24"]
-
-  enforce_private_link_endpoint_network_policies = true
-}
-
-resource "azurerm_public_ip" "example" {
-  name                = "example-pip"
+resource "azurerm_public_ip" "ip" {
+  ipname                = "public_ip"
   sku                 = "Standard"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.rgname
   allocation_method   = "Static"
 }
 
-resource "azurerm_lb" "example" {
+resource "azurerm_lb" "lb" {
   name                = "example-lb"
   sku                 = "Standard"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.rgname
 
   frontend_ip_configuration {
-    name                 = azurerm_public_ip.example.name
-    public_ip_address_id = azurerm_public_ip.example.id
+    name                 = azurerm_public_ip.ip.ipname
+    public_ip_address_id = azurerm_public_ip.ip.id
   }
 }
 
-resource "azurerm_private_link_service" "example" {
-  name                = "example-privatelink"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_private_link_service" "private_link" {
+  name                = "mylink"
+  location            = var.location
+  resource_group_name = var.rgname
 
   nat_ip_configuration {
-    name      = azurerm_public_ip.example.name
+    name      = azurerm_public_ip.ip.ipname
     primary   = true
     subnet_id = azurerm_subnet.service.id
   }
@@ -64,15 +34,15 @@ resource "azurerm_private_link_service" "example" {
   ]
 }
 
-resource "azurerm_private_endpoint" "example" {
-  name                = "example-endpoint"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  subnet_id           = azurerm_subnet.endpoint.id
+resource "azurerm_private_endpoint" "pe" {
+  name                = "private_endpoint"
+  location            = var.location
+  resource_group_name = var.rgname
+  subnet_id           = module.azurerm_subnet.subnet_id 
 
   private_service_connection {
     name                           = "example-privateserviceconnection"
-    private_connection_resource_id = azurerm_private_link_service.example.id
+    private_connection_resource_id = azurerm_private_link_service.private_link.id
     is_manual_connection           = false
   }
 }
