@@ -17,7 +17,7 @@ module "VNET" {
   rgname   = var.rgname     
   location = var.location
   vname    = var.vnetname
- }
+}
 module "Subnet" {
   source   = "./modules/Subnet" 
   rgname   = var.rgname     
@@ -30,7 +30,7 @@ module "DNS" {
   location = var.location
   linkname = var.linkname
 } 
-  module "acr" {
+module "acr" {
   source   = "./modules/DNS" 
   rgname   = var.rgname     
   location = var.location
