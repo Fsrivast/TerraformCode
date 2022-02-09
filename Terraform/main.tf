@@ -12,14 +12,14 @@ terraform {
    source   = "./modules/RG"
    rgname   = var.rgname
    location = var.location
- }
- module "VNET" {   
+}
+ module "VNET" {
    source   = "./modules/VNET"
    rgname   = var.rgname
    location = var.location
    vname    = var.vnetname
  }
- module "Subnet" {   
+ module "Subnet" {
    source   = "./modules/Subnet"
    rgname   = var.rgname
    location = var.location
@@ -29,7 +29,7 @@ terraform {
    source   = "./modules/DNS"
    rgname   = var.rgname
    location = var.location
-   linkname = var.linkname  
+   linkname = var.linkname
  }
  module "acr" {
    source   = "./modules/acr"
@@ -37,6 +37,7 @@ terraform {
    location = var.location
    name     = var.acrname
  }
+
 module "AKS" {
   source              = "./modules/AKS"
   cluster_name        = var.cluster_name
