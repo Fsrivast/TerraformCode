@@ -35,21 +35,21 @@ module "VM" {
   rgname           = var.rgname
 }
  module "VNET" {
-  source           = "./modules/VNET"
-  location         = var.location
-  rgname           = var.rgname
-  vname            = var.vnetname
+   source           = "./modules/VNET"
+   location         = var.location
+   rgname           = var.rgname
+   vname            = var.vnetname
 }
   module "Subnet" {
-  source           = "./modules/Subnet"
-  sname            = var.subnetname
-  location         = var.location
-  rgname           = var.rgname
+    source           = "./modules/Subnet"
+    sname            = var.subnetname
+    location         = var.location
+    rgname           = var.rgname
 }
   module "DNS" {
-  source           = "./modules/DNS"
-  linkname         = var.linkname
-  location         = var.location
-  rgname           = var.rgname
+    source           = "./modules/DNS"
+    linkname         = var.linkname
+    location         = var.location
+    rgname           = var.rgname
 }
   
