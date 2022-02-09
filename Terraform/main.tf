@@ -1,4 +1,4 @@
-#test
+# File test
 terraform {
   backend "azurerm" {
     resource_group_name  = "TerraformDevOps"
@@ -7,36 +7,11 @@ terraform {
     key                  = "dev.terraform.tfstate"
   }
 }
-#RG
- module "RG" {
-   source   = "./modules/RG"
-   rgname   = var.rgname
-   location = var.location
+module "RG" {
+  source   = "./modules/RG" #A
+  rgname   = var.rgname     #B
+  location = var.location
 }
- module "VNET" {
-   source   = "./modules/VNET"
-   rgname   = var.rgname
-   location = var.location
-   vname    = var.vnetname
- }
- module "Subnet" {
-   source   = "./modules/Subnet"
-   rgname   = var.rgname
-   location = var.location
-   sname    = var.subnetname
- }
- module "DNS" {
-   source   = "./modules/DNS"
-   rgname   = var.rgname
-   location = var.location
-   linkname = var.linkname
- }
- module "acr" {
-   source   = "./modules/acr"
-   rgname   = var.rgname
-   location = var.location
-   name     = var.acrname
- }
 
 module "AKS" {
   source              = "./modules/AKS"
@@ -47,3 +22,34 @@ module "AKS" {
   node_resource_group = var.node_resource_group
   system_node_count   = var.system_node_count
 }
+module "ACR" {
+  source   = "./modules/ACR"
+  acr_name = var.acr_name
+  location = var.location
+  rgname   = var.rgname
+}
+module "VM" {
+  source           = "./modules/VM"
+  vmadmin_password = var.vmadmin_password
+  location         = var.location
+  rgname           = var.rgname
+}
+ module "VNET" {
+  source           = "./modules/VNET"
+  location         = var.location
+  rgname           = var.rgname
+  vname            = var.vnetname
+}
+  module "Subnet" {
+  source           = "./modules/Subnet"
+  sname            = var.subnetname
+  location         = var.location
+  rgname           = var.rgname
+}
+  module "DNS" {
+  source           = "./modules/DNS"
+  linkname         = var.linkname
+  location         = var.location
+  rgname           = var.rgname
+}
+  
