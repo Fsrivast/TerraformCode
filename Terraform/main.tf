@@ -29,8 +29,7 @@ terraform {
    source   = "./modules/DNS"
    rgname   = var.rgname
    location = var.location
-   linkname = var.linkname
-   
+   linkname = var.linkname  
  }
  module "acr" {
    source   = "./modules/acr"
