@@ -7,11 +7,11 @@ terraform {
     key                  = "dev.terraform.tfstate"
   }
 }
-module "RG" {
-  source   = "./modules/RG" 
-  rgname   = var.rgname     
-  location = var.location
-}
+ module "RG" {
+   source   = "./modules/RG"
+   rgname   = var.rgname
+   location = var.location
+ }
 module "VNET" {
   source   = "./modules/VNET" 
   rgname   = var.rgname     
