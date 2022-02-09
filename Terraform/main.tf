@@ -7,6 +7,7 @@ terraform {
     key                  = "dev.terraform.tfstate"
   }
 }
+#RG
  module "RG" {
    source   = "./modules/RG"
    rgname   = var.rgname
