@@ -13,30 +13,31 @@ terraform {
    rgname   = var.rgname
    location = var.location
  }
-module "VNET" {
-  source   = "./modules/VNET" 
-  rgname   = var.rgname     
-  location = var.location
-  vname    = var.vnetname
-}
-module "Subnet" {
-  source   = "./modules/Subnet" 
-  rgname   = var.rgname     
-  location = var.location
-  sname    = var.subnetname
-}
-module "DNS" {
-  source   = "./modules/DNS" 
-  rgname   = var.rgname     
-  location = var.location
-  linkname = var.linkname
-} 
-module "acr" {
-  source   = "./modules/DNS" 
-  rgname   = var.rgname     
-  location = var.location
-  name = var.acrname
-} 
+ module "VNET" {   
+   source   = "./modules/VNET"
+   rgname   = var.rgname
+   location = var.location
+   vname    = var.vnetname
+ }
+ module "Subnet" {   
+   source   = "./modules/Subnet"
+   rgname   = var.rgname
+   location = var.location
+   sname    = var.subnetname
+ }
+ module "DNS" {
+   source   = "./modules/DNS"
+   rgname   = var.rgname
+   location = var.location
+   linkname = var.linkname
+   
+ }
+ module "acr" {
+   source   = "./modules/acr"
+   rgname   = var.rgname
+   location = var.location
+   name     = var.acrname
+ }
 module "AKS" {
   source              = "./modules/AKS"
   cluster_name        = var.cluster_name
